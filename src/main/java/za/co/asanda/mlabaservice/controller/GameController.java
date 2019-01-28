@@ -3,6 +3,8 @@ package za.co.asanda.mlabaservice.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,13 +18,12 @@ public class GameController {
 	@Autowired
 	private GameState gameState;
 	
-	@GetMapping("/move")
-	public int move(long gameId, Move move) {
-		gameState.move(gameId, move);
-		return 0;
+	@PostMapping("/move/{gameId}")
+	public int move(@PathVariable("gameId") long gameId, @RequestBody Move move) {
+		return gameState.move(gameId, move);
 	}
 	@GetMapping("/getLastMove/{id}")
-	public Move getLastMove(long gameId) {
+	public Move getLastMove(@PathVariable("id") long gameId) {
 		return gameState.getLastMove(gameId);
 	}
 	@GetMapping("/getPlayerGame/{id}")

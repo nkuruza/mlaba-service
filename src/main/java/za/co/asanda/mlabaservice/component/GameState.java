@@ -30,6 +30,11 @@ public class GameState {
 	}
 	public int move(long gameId, Move move) {
 		Game game = games.get(gameId);
+		if(game == null) {
+			game = gameRepo.getOne(gameId);
+			games.put(gameId, game);
+		}
+			
 		List<Move> moves = game.getMoves();
 		int numMoves = moves.size();
 		games.get(gameId).getMoves().add(move);
@@ -42,6 +47,8 @@ public class GameState {
 	}
 	public Game getPlayerGame(long id) {
 		Game game = gameRepo.findByPlayer2IdAndWinner(id, null);
+		if(games.get(game.getId()) == null)
+			games.put(game.getId(), game);
 		return game;
 	}
 	public Game getGame(long id) {
