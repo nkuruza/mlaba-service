@@ -4,5 +4,5 @@ import za.co.asanda.mlabaservice.model.Player;
 
 public interface PlayerService {
 	Player addPlayer(Player player);
-	
+	Player getByDeviceId(String deviceId);
 }

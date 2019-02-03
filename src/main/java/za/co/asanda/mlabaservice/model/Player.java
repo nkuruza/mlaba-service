@@ -20,6 +20,9 @@ public class Player implements Serializable {
 	@NotEmpty
 	@Column(unique=true)
 	private String name;
+	//@Column(unique=true)
+	private String deviceId;
+	
 	public long getId() {
 		return id;
 	}
@@ -31,5 +34,11 @@ public class Player implements Serializable {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getDeviceId() {
+		return deviceId;
+	}
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 }

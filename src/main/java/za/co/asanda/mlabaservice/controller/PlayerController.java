@@ -24,4 +24,8 @@ public class PlayerController {
 	public Player getPlayer(@PathVariable("id") long id) {
 		return new Player();
 	}
+	@GetMapping
+	public Player getPlayerByDeviceId(@PathVariable("deviceId") String deviceId) {
+		return service.getByDeviceId(deviceId);
+	}
 }

@@ -18,5 +18,8 @@ public class PlayerServiceImpl implements PlayerService {
 		lobby.join(player);
 		return player;
 	}
-
+	@Override
+	public Player getByDeviceId(String deviceId) {
+		return repo.findByDeviceId(deviceId);
+	}
 }
