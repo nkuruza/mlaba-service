@@ -25,7 +25,7 @@ public class Lobby {
 	private GameState gameState;
 	
 	private Map<Long, Player> players = new HashMap<Long, Player>();
-	public void join(Player player) {
+	private void join(Player player) {
 		players.put(player.getId(), player);
 	}
 	public Challenge challenge(long challengerId, long opponentId) {

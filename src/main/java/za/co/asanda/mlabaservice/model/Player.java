@@ -20,7 +20,7 @@ public class Player implements Serializable {
 	@NotEmpty
 	@Column(unique=true)
 	private String name;
-	//@Column(unique=true)
+	@Column(unique=true)
 	private String deviceId;
 	
 	public long getId() {

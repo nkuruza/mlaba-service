@@ -29,7 +29,7 @@ public class LobbyController {
 	public Collection<Player> getPlayers() {
 		return lobby.getPlayers();
 	}
-	@GetMapping("/challenge/{me}/{id}")
+	@GetMapping("/{me}/challenge/{id}")
 	public Challenge challenge(@PathVariable("me") long me, @PathVariable("id") long id) {
 		
 		return lobby.challenge(me, id);
