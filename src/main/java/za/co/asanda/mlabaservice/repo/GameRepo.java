@@ -7,4 +7,5 @@ import za.co.asanda.mlabaservice.model.Player;
 
 public interface GameRepo extends JpaRepository<Game, Long> {
 	Game findByPlayer2IdAndWinner(long playerId, Player winner);
+	Game findByPlayer1IdAndWinner(long playerId, Player winner);
 }

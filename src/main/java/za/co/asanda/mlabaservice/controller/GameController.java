@@ -19,7 +19,7 @@ public class GameController {
 	private GameState gameState;
 	
 	@PostMapping("/move/{gameId}")
-	public int move(@PathVariable("gameId") long gameId, @RequestBody Move move) {
+	public Move move(@PathVariable("gameId") long gameId, @RequestBody Move move) {
 		return gameState.move(gameId, move);
 	}
 	@GetMapping("/getLastMove/{id}")
@@ -33,5 +33,9 @@ public class GameController {
 	@GetMapping("/get/{id}")
 	public Game getGame(@PathVariable("id") long id) {
 		return gameState.getGame(id);
+	}
+	@GetMapping("/get/game/creator/{id}")
+	public Game getGameByPlayer1(@PathVariable("id") long id) {
+		return gameState.getGameByPlayer1(id);
 	}
 }

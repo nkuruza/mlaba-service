@@ -34,12 +34,13 @@ public class LobbyController {
 		
 		return lobby.challenge(me, id);
 	}
-	@GetMapping("/accept/{me}/{id}")
+	@GetMapping("/{me}/accept/{id}")
 	public Game accept(@PathVariable("me") long me, @PathVariable("id") long id) {
 		return lobby.accept(me, id);
 	}
 	@GetMapping("/challenges/{id}")
 	public List<Challenge> getChallenges(@PathVariable("id") long id){
-		return lobby.getChallenges(id);
+		List<Challenge> challenges= lobby.getChallenges(id);
+		return challenges; 
 	}
 }

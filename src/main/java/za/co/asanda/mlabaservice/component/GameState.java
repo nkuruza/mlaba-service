@@ -12,11 +12,14 @@ import za.co.asanda.mlabaservice.model.Game;
 import za.co.asanda.mlabaservice.model.Move;
 import za.co.asanda.mlabaservice.model.Player;
 import za.co.asanda.mlabaservice.repo.GameRepo;
+import za.co.asanda.mlabaservice.repo.MoveRepo;
 
 @Component("game")
 public class GameState {
 	@Autowired
 	private GameRepo gameRepo;
+	@Autowired
+	private MoveRepo moveRepo;
 	
 	private Map<Long, Game> games = new HashMap<Long, Game>();
 	
@@ -28,7 +31,7 @@ public class GameState {
 		gameRepo.save(game);
 		return game;
 	}
-	public int move(long gameId, Move move) {
+	public Move move(long gameId, Move move) {
 		Game game = games.get(gameId);
 		if(game == null) {
 			game = gameRepo.getOne(gameId);
@@ -37,22 +40,31 @@ public class GameState {
 			
 		List<Move> moves = game.getMoves();
 		int numMoves = moves.size();
+		
 		games.get(gameId).getMoves().add(move);
-		return numMoves - game.getMoves().size();
+		moveRepo.save(move);
+		//gameRepo.save(game);
+		return move;
 	}
 	public Move getLastMove(long gameId) {
 		List<Move> moves = games.get(gameId).getMoves();
 		int numMoves = moves.size();
-		return numMoves > 0 ? moves.get(numMoves - 1) : null;
+		return numMoves > 0 ? moves.get(numMoves - 1) : new Move();
 	}
 	public Game getPlayerGame(long id) {
 		Game game = gameRepo.findByPlayer2IdAndWinner(id, null);
-		if(games.get(game.getId()) == null)
+		if(game != null && games.get(game.getId()) == null)
 			games.put(game.getId(), game);
+		if (game == null)
+			game = getGameByPlayer1(id);
 		return game;
 	}
 	public Game getGame(long id) {
 		return gameRepo.getOne(id);
+	}
+	public Game getGameByPlayer1(long id) {
+		Game game = gameRepo.findByPlayer1IdAndWinner(id, null);
+		return game != null ? game : new Game();
 	}
 
 }

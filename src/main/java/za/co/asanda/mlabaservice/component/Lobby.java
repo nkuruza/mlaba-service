@@ -38,7 +38,7 @@ public class Lobby {
 	}
 	public Game accept(long opponentId, long challengeId) {
 		Challenge challenge = challengeRepo.getOne(challengeId);
-		if(challenge.getOpponent().getId() != opponentId)
+		if(challenge.getOpponent().getId() != opponentId || challenge.getGame() != null)
 			return null;
 		Game game = gameState.startGame(challenge.getOpponent(), challenge.getChallenger());
 		challenge.setGame(game);
