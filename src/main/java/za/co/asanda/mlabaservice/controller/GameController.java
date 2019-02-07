@@ -38,4 +38,8 @@ public class GameController {
 	public Game getGameByPlayer1(@PathVariable("id") long id) {
 		return gameState.getGameByPlayer1(id);
 	}
+	@GetMapping("{id}/set/winner/{playerId}")
+	public Game setWinner(@PathVariable("id") long gameId, @PathVariable("playerId") long playerId) {
+		return gameState.setWinner(gameId, playerId);
+	}
 }

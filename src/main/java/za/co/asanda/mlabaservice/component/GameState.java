@@ -37,13 +37,9 @@ public class GameState {
 			game = gameRepo.getOne(gameId);
 			games.put(gameId, game);
 		}
-			
-		List<Move> moves = game.getMoves();
-		int numMoves = moves.size();
 		
 		games.get(gameId).getMoves().add(move);
 		moveRepo.save(move);
-		//gameRepo.save(game);
 		return move;
 	}
 	public Move getLastMove(long gameId) {
@@ -59,8 +55,16 @@ public class GameState {
 			game = getGameByPlayer1(id);
 		return game;
 	}
+	public Game setWinner(long gameId, long playerId) {
+		Game game = getGame(gameId);
+		game.setWinner(game.getPlayer1().getId() == playerId ? game.getPlayer1() : game.getPlayer2());
+		return gameRepo.save(game);
+	}
 	public Game getGame(long id) {
-		return gameRepo.getOne(id);
+		Game g = games.get(id);
+		if(g == null)
+			g = gameRepo.getOne(id);
+		return g;
 	}
 	public Game getGameByPlayer1(long id) {
 		Game game = gameRepo.findByPlayer1IdAndWinner(id, null);

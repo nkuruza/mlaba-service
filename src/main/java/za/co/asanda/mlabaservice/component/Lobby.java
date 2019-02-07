@@ -51,7 +51,7 @@ public class Lobby {
 		return this.players.values();
 	}
 	public List<Challenge> getChallenges(long playerId){
-		return challengeRepo.findByOpponentId(playerId);
+		return challengeRepo.findByOpponentIdAndGame(playerId, null);
 	}
 	public void join(long id) {
 		Player player = playerRepo.getOne(id);
